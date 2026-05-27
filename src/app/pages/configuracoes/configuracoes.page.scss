@@ -1,0 +1,36 @@
+// src/app/pages/configuracoes/configuracoes.page.scss
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px; font-weight: 700;
+  color: var(--text-muted); text-transform: uppercase;
+  letter-spacing: 1px; padding: 20px 16px 6px;
+}
+
+.config-list {
+  border-radius: 12px; overflow: hidden;
+  margin: 0 12px; background: #fff;
+  border: 1px solid var(--bege-border);
+
+  ion-item {
+    --background: #fff;
+    --border-color: var(--bege-border);
+    --padding-start: 16px;
+    font-size: 14px;
+    color: var(--text-dark);
+  }
+
+  ion-icon[slot="start"] {
+    margin-right: 12px;
+    font-size: 20px;
+    color: var(--vinho) !important;
+  }
+}
+
+ion-note {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.logout-area {
+  padding: 24px 16px 40px;
+}

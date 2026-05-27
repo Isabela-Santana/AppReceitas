@@ -1,0 +1,60 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function logado() {
+      return request.auth != null;
+    }
+    function dono(uid) {
+      return logado() && request.auth.uid == uid;
+    }
+
+    // Usuários — qualquer um lê, só o dono escreve
+    match /usuarios/{userId} {
+      allow read: if true;
+      allow create: if dono(userId);
+      allow update: if dono(userId);
+      allow delete: if false;
+    }
+
+    // Usernames — leitura livre, criação por logados
+    match /usernames/{username} {
+      allow read:   if true;
+      allow create: if logado();
+      allow delete: if logado() && resource.data.uid == request.auth.uid;
+      allow update: if false;
+    }
+
+    // Receitas — qualquer um lê ativas, autor escreve
+    match /receitas/{receitaId} {
+      allow read:   if resource.data.ativo == true || (logado() && resource.data.autorId == request.auth.uid);
+      allow create: if logado() && request.resource.data.autorId == request.auth.uid;
+      allow update: if logado() && resource.data.autorId == request.auth.uid;
+      allow delete: if logado() && resource.data.autorId == request.auth.uid;
+    }
+
+    // Curtidas — ID composto userId_receitaId
+    match /curtidas/{curtidaId} {
+      allow read:   if logado() && resource.data.userId == request.auth.uid;
+      allow create: if logado() && request.resource.data.userId == request.auth.uid;
+      allow delete: if logado() && resource.data.userId == request.auth.uid;
+      allow update: if false;
+    }
+
+    // Salvos — ID composto userId_receitaId
+    match /salvos/{salvoId} {
+      allow read:   if logado() && resource.data.userId == request.auth.uid;
+      allow create: if logado() && request.resource.data.userId == request.auth.uid;
+      allow delete: if logado() && resource.data.userId == request.auth.uid;
+      allow update: if false;
+    }
+
+    // Notificações — destinatário lê, remetente cria
+    match /notificacoes/{notifId} {
+      allow read:   if logado() && resource.data.destinatarioId == request.auth.uid;
+      allow create: if logado() && request.resource.data.remetenteId == request.auth.uid;
+      allow update: if logado() && resource.data.destinatarioId == request.auth.uid;
+      allow delete: if false;
+    }
+  }
+}

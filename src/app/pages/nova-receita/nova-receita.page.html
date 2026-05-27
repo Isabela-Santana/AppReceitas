@@ -1,0 +1,129 @@
+<!-- src/app/pages/nova-receita/nova-receita.page.html -->
+
+<!--Tela para criar/publicar nova receita-->>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nova Receita</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="salvar()" [disabled]="salvando">
+        <ion-icon slot="icon-only" name="checkmark-outline" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="form" (ngSubmit)="salvar()">
+
+    <!-- Imagem -->
+    <div class="foto-area" (click)="escolherFoto()">
+      <img *ngIf="imagemPreview; else semFoto" [src]="imagemPreview" class="foto-preview"/>
+      <ng-template #semFoto>
+        <div class="foto-placeholder">
+          <ion-icon name="camera-outline"></ion-icon>
+          <span>Adicionar foto</span>
+        </div>
+      </ng-template>
+    </div>
+
+    <div class="form-content">
+
+      <!-- Título -->
+      <div class="field-group">
+        <label class="field-label">Título da Receita *</label>
+        <div class="input-box">
+          <ion-input formControlName="titulo" placeholder="Ex: Bolo de Chocolate da Vovó"
+            class="custom-input">
+          </ion-input>
+        </div>
+        <div class="error-msg" *ngIf="form.get('titulo')?.invalid && form.get('titulo')?.touched">
+          Título obrigatório.
+        </div>
+      </div>
+
+      <!-- Descrição -->
+      <div class="field-group">
+        <label class="field-label">Descrição *</label>
+        <div class="input-box textarea-box">
+          <ion-textarea formControlName="descricao" placeholder="Conte um pouco sobre a receita..."
+            [autoGrow]="true" rows="3" class="custom-input">
+          </ion-textarea>
+        </div>
+      </div>
+
+      <!-- Tempo -->
+      <div class="field-group">
+        <label class="field-label">Tempo de Preparo *</label>
+        <div class="input-box">
+          <ion-input formControlName="tempo" placeholder="Ex: 1h30min"
+            class="custom-input">
+          </ion-input>
+        </div>
+      </div>
+
+      <!-- Ingredientes -->
+      <div class="field-group">
+        <div class="section-header">
+          <label class="field-label">Ingredientes *</label>
+          <ion-button fill="clear" size="small" (click)="adicionarIngrediente()">
+            <ion-icon name="add-circle-outline" slot="icon-only" color="primary"></ion-icon>
+          </ion-button>
+        </div>
+
+        <div class="ingrediente-row"
+          *ngFor="let ing of ingredientes; let i = index; trackBy: trackByIndex">
+          <div class="input-box" style="flex:1;">
+            <ion-input
+              [value]="ingredientes[i]"
+              (ionInput)="onIngredienteChange(i, $event)"
+              placeholder="Ex: 2 xícaras de farinha"
+              class="custom-input">
+            </ion-input>
+          </div>
+          <ion-button fill="clear" color="danger" (click)="removerIngrediente(i)">
+            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- Passos -->
+      <div class="field-group">
+        <div class="section-header">
+          <label class="field-label">Modo de Preparo *</label>
+          <ion-button fill="clear" size="small" (click)="adicionarPasso()">
+            <ion-icon name="add-circle-outline" slot="icon-only" color="primary"></ion-icon>
+          </ion-button>
+        </div>
+
+        <div class="passo-row"
+          *ngFor="let passo of passos; let i = index; trackBy: trackByIndex">
+          <div class="passo-num">{{ i + 1 }}</div>
+          <div class="input-box textarea-box" style="flex:1;">
+            <ion-textarea
+              [value]="passos[i]"
+              (ionInput)="onPassoChange(i, $event)"
+              placeholder="Descreva o passo..."
+              [autoGrow]="true" rows="2"
+              class="custom-input">
+            </ion-textarea>
+          </div>
+          <ion-button fill="clear" color="danger" (click)="removerPasso(i)">
+            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- Botão salvar -->
+      <ion-button expand="block" class="btn-vinho btn-salvar"
+        (click)="salvar()" [disabled]="salvando">
+        <ion-spinner *ngIf="salvando" name="crescent" slot="start"></ion-spinner>
+        {{ salvando ? 'Salvando...' : 'Publicar Receita' }}
+      </ion-button>
+
+    </div>
+  </form>
+</ion-content>

@@ -1,0 +1,69 @@
+// src/app/pages/receita/receita.page.scss
+.receita-hero {
+  position: relative; width: 100%; height: 220px; overflow: hidden;
+  img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-gradient {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+    background: linear-gradient(to top, rgba(250,245,239,0.8), transparent);
+  }
+}
+
+.receita-content { padding: 16px 18px; }
+
+.receita-title { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--text-dark); margin: 0 0 12px; }
+
+.receita-meta {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;
+
+  .meta-autor {
+    display: flex; align-items: center; gap: 7px;
+    .avatar-circle {
+      width: 28px; height: 28px; border-radius: 50%; background: var(--dourado);
+      color: #fff; font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .autor-nome { font-size: 13px; font-weight: 700; color: var(--text-mid); }
+    .dot, .tempo { font-size: 12px; color: var(--text-light); }
+  }
+
+  .meta-curtidas {
+    display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-muted); cursor: pointer;
+    ion-icon { font-size: 18px; color: var(--text-light); transition: color 0.2s; &.curtido { color: var(--vinho); } }
+  }
+}
+
+.receita-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin: 0 0 16px; }
+
+.section-title { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--text-dark); margin: 16px 0 10px; }
+
+.ingredientes-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
+
+.ingrediente-item {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+  .check-circle {
+    width: 22px; height: 22px; border-radius: 50%; background: var(--vinho);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    opacity: 0.35; transition: opacity 0.2s;
+    ion-icon { font-size: 13px; color: #fff; }
+    &.checked { opacity: 1; }
+  }
+  span { font-size: 13px; color: var(--text-mid); &.riscado { text-decoration: line-through; color: var(--text-light); } }
+}
+
+.passos-list { display: flex; flex-direction: column; gap: 14px; padding-bottom: 16px; }
+
+.passo-item {
+  display: flex; gap: 12px;
+  .passo-num {
+    width: 28px; height: 28px; border-radius: 50%; background: var(--dourado);
+    color: #fff; font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+  .passo-texto { font-size: 13px; color: var(--text-mid); line-height: 1.6; margin: 0; padding-top: 4px; }
+}
+
+.receita-footer {
+  --background: transparent; box-shadow: none; border-top: 1px solid var(--bege-border);
+  .footer-inner { background: var(--bege); padding: 10px 18px 16px; }
+  .btn-salvar { height: 48px; font-size: 15px; }
+}

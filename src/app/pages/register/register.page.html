@@ -1,0 +1,103 @@
+
+
+
+<ion-content [fullscreen]="true" class="register-content">
+
+  <div class="register-hero">
+    <ion-button fill="clear" class="btn-voltar" routerLink="/login">
+      <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+    <div class="logo-wrapper">
+      <div class="logo-icon">
+        <ion-icon name="restaurant-outline"></ion-icon>
+      </div>
+      <h1 class="logo-title">Criar Conta</h1>
+      <p class="logo-sub">Junte-se à Receitas Da Nona</p>
+    </div>
+    <div class="wave-divider">
+      <svg viewBox="0 0 375 48" preserveAspectRatio="none">
+        <path d="M0,48 Q94,0 188,32 Q282,64 375,16 L375,48 Z" fill="#FAF5EF"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="register-form-area">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+
+      <div class="input-group">
+        <ion-icon name="person-outline" class="input-icon"></ion-icon>
+        <ion-input formControlName="nome" type="text"
+          placeholder="Seu nome completo" class="custom-input">
+        </ion-input>
+      </div>
+      <div class="error-msg"
+        *ngIf="registerForm.get('nome')?.invalid && registerForm.get('nome')?.touched">
+        Nome obrigatório.
+      </div>
+
+      <div class="input-group">
+        <ion-icon name="at-outline" class="input-icon"></ion-icon>
+        <ion-input formControlName="username" type="text"
+          placeholder="Nome de usuário" class="custom-input">
+        </ion-input>
+      </div>
+      <div class="error-msg"
+        *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+        Mínimo 3 caracteres, sem espaços.
+      </div>
+
+      <div class="input-group">
+        <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+        <ion-input formControlName="email" type="email"
+          placeholder="Digite seu email" class="custom-input">
+        </ion-input>
+      </div>
+      <div class="error-msg"
+        *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        Email inválido.
+      </div>
+
+      <div class="input-group">
+        <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+        <ion-input formControlName="password"
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Crie uma senha" class="custom-input">
+        </ion-input>
+        <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+          class="input-icon-right" (click)="togglePassword()">
+        </ion-icon>
+      </div>
+      <div class="error-msg"
+        *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        Mínimo de 6 caracteres.
+      </div>
+
+      <div class="input-group">
+        <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+        <ion-input formControlName="confirmPassword"
+          [type]="showConfirm ? 'text' : 'password'"
+          placeholder="Confirme sua senha" class="custom-input">
+        </ion-input>
+        <ion-icon [name]="showConfirm ? 'eye-off-outline' : 'eye-outline'"
+          class="input-icon-right" (click)="toggleConfirm()">
+        </ion-icon>
+      </div>
+      <div class="error-msg"
+        *ngIf="registerForm.errors?.['senhasDiferentes'] && registerForm.get('confirmPassword')?.touched">
+        As senhas não coincidem.
+      </div>
+
+      <ion-button expand="block" class="btn-vinho btn-register"
+        type="submit" [disabled]="registerForm.invalid || loading">
+        <ion-spinner *ngIf="loading" name="crescent" slot="start"></ion-spinner>
+        {{ loading ? 'Criando conta...' : 'Criar Conta' }}
+      </ion-button>
+
+    </form>
+
+    <p class="footer-login">
+      Já tem conta? <span class="link-vinho" routerLink="/login">Entrar</span>
+    </p>
+  </div>
+
+</ion-content>

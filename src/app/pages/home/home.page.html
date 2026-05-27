@@ -1,0 +1,109 @@
+<ion-header class="feed-header ion-no-border">
+  <ion-toolbar>
+    <div class="toolbar-brand">
+      <h1 class="toolbar-brand__title">Receitas Da Nona</h1>
+    </div>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="irParaNotificacoes()" class="notif-btn">
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+      </ion-button>
+      
+      <ion-button routerLink="/tabs/perfil" class="avatar-btn">
+        <div class="toolbar-avatar">{{ usuarioIniciais }}</div>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="feed-content" [fullscreen]="true">
+  <div class="bg-accent"></div>
+
+  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-outline" refreshingSpinner="crescent">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div class="feed-wrapper">
+    
+    <div class="custom-searchbar" (click)="irParaBusca()">
+      <ion-icon name="search-outline"></ion-icon>
+      <span>Buscar segredos culinários...</span>
+    </div>
+
+    <div class="feed-heading">
+      <h2 class="feed-heading__title">
+        <ion-icon name="cafe-outline" class="feed-heading__icon"></ion-icon>
+        Destaques do Dia
+      </h2>
+      <ion-badge class="count-badge">Especial</ion-badge>
+    </div>
+
+    <div class="destaques-scroll" *ngIf="!isLoading; else skeletonDestaque">
+      <div class="destaque-card" *ngFor="let receita of receitasDestaque; trackBy: trackById"
+        (click)="verReceita(receita)">
+        <div class="destaque-img-wrapper">
+          <img [src]="receita.imagemUrl" [alt]="receita.titulo" />
+          <div class="destaque-overlay">
+            <div class="destaque-content">
+              <span class="card-header__category">Sugestão da Nona</span>
+              <h3 class="destaque-titulo">{{ receita.titulo }}</h3>
+              <button class="destaque-btn">Descobrir Segredo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feed-heading" style="margin-top: 32px;">
+      <h2 class="feed-heading__title">Explorar Feed</h2>
+    </div>
+
+    <div class="receitas-list" *ngIf="!isLoading; else skeletonFeed">
+      <ion-card class="receita-card" *ngFor="let receita of receitas; trackBy: trackById" (click)="verReceita(receita)">
+        <div class="card-cover">
+          <img [src]="receita.imagemUrl" [alt]="receita.titulo" />
+          <div class="card-cover__overlay"></div>
+        </div>
+
+        <div class="card-header">
+          <div class="card-header__category">Receita Caseira</div>
+          <h3 class="card-header__title">{{ receita.titulo }}</h3>
+        </div>
+
+        <ion-card-content class="card-body">
+          <p class="card-body__description">{{ receita.descricao }}</p>
+          <div class="card-meta">
+            <div class="card-meta__item">
+              <ion-icon name="time-outline"></ion-icon>
+              {{ receita.tempo }}
+            </div>
+            <div class="card-meta__item" (click)="curtir(receita, $event)">
+              <ion-icon [name]="receita.curtido ? 'heart' : 'heart-outline'"></ion-icon>
+              {{ receita.curtidas }}
+            </div>
+            <div class="card-meta__item" style="margin-left: auto;" (click)="salvar(receita, $event)">
+              <ion-icon [name]="receita.salvo ? 'bookmark' : 'bookmark-outline'"></ion-icon>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <ng-template #skeletonDestaque>
+      <div class="destaque-card">
+        <ion-skeleton-text animated style="height:220px; border-radius:24px;"></ion-skeleton-text>
+      </div>
+    </ng-template>
+
+    <ng-template #skeletonFeed>
+      <div class="receita-card" *ngFor="let i of [1,2]">
+        <ion-skeleton-text animated style="height:200px;"></ion-skeleton-text>
+        <div style="padding: 20px;">
+          <ion-skeleton-text animated style="width: 40%; height: 12px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 80%; height: 20px; margin-top: 10px;"></ion-skeleton-text>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</ion-content>

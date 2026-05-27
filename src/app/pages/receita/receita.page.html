@@ -1,0 +1,83 @@
+<!-- src/app/pages/receita/receita.page.html -->
+
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Receita</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="compartilhar()">
+        <ion-icon slot="icon-only" name="share-social-outline" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="receita; else loading">
+
+  <div class="receita-hero">
+    <img [src]="receita.imagemUrl" [alt]="receita.titulo"/>
+    <div class="hero-gradient"></div>
+  </div>
+
+  <div class="receita-content">
+    <h1 class="receita-title">{{ receita.titulo }}</h1>
+
+    <div class="receita-meta">
+      <div class="meta-autor">
+        <div class="avatar-circle">{{ receita.autorInicial }}</div>
+        <span class="autor-nome">{{ receita.autor }}</span>
+        <span class="dot">•</span>
+        <span class="tempo">{{ receita.tempo }}</span>
+      </div>
+      <div class="meta-curtidas" (click)="curtir()">
+        <ion-icon [name]="receita.curtido ? 'heart' : 'heart-outline'"
+          [class.curtido]="receita.curtido">
+        </ion-icon>
+        <span>{{ receita.curtidas }} curtidas</span>
+      </div>
+    </div>
+
+    <p class="receita-desc">{{ receita.descricao }}</p>
+
+    <h2 class="section-title">Ingredientes</h2>
+    <div class="ingredientes-list">
+      <div class="ingrediente-item" *ngFor="let item of receita.ingredientes; let i = index"
+        (click)="toggleIngrediente(i)">
+        <div class="check-circle" [class.checked]="ingredientesChecked[i]">
+          <ion-icon name="checkmark"></ion-icon>
+        </div>
+        <span [class.riscado]="ingredientesChecked[i]">{{ item }}</span>
+      </div>
+    </div>
+
+    <h2 class="section-title">Modo de Preparo</h2>
+    <div class="passos-list">
+      <div class="passo-item" *ngFor="let passo of receita.passos; let i = index">
+        <div class="passo-num">{{ i + 1 }}</div>
+        <p class="passo-texto">{{ passo }}</p>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+
+<ng-template #loading>
+  <ion-content>
+    <ion-skeleton-text animated style="height:220px;width:100%;"></ion-skeleton-text>
+    <div style="padding:16px;">
+      <ion-skeleton-text animated style="height:24px;width:70%;border-radius:6px;"></ion-skeleton-text>
+    </div>
+  </ion-content>
+</ng-template>
+
+<ion-footer *ngIf="receita" class="receita-footer">
+  <div class="footer-inner">
+    <ion-button expand="block" class="btn-dourado btn-salvar" (click)="salvarReceita()">
+      <ion-icon name="bookmark-outline" slot="start"></ion-icon>
+      {{ receita.salvo ? 'Receita Salva ✓' : 'Salvar Receita' }}
+    </ion-button>
+  </div>
+</ion-footer>

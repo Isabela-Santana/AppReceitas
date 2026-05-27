@@ -1,0 +1,8 @@
+node_modules/
+.angular/
+.vscode/
+www/
+dist/
+android/.gradle/
+android/app/build/
+android/local.properties

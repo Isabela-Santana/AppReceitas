@@ -1,0 +1,75 @@
+<!--Tela para editar dados do perfil-->>
+
+<ion-header>
+  <ion-toolbar color="dark-wine">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/configuracoes" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Foto de Perfil -->
+  <div class="profile-photo-section">
+    <div class="photo-wrapper" (click)="alterarFoto()">
+      <ion-avatar class="profile-avatar">
+        <img [src]="fotoUrl || 'assets/avatar-placeholder.png'" alt="Foto de Perfil" />
+      </ion-avatar>
+      <div class="photo-overlay">
+        <ion-icon name="camera-outline"></ion-icon>
+      </div>
+    </div>
+    <p class="photo-label">Toque para alterar a foto</p>
+  </div>
+
+  <!-- Formulário -->
+  <div class="form-section">
+    <div class="field-group">
+      <label class="field-label">Nome</label>
+      <ion-input
+        [(ngModel)]="nome"
+        placeholder="Seu nome"
+        class="custom-input"
+      ></ion-input>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Nome de usuário</label>
+      <ion-input
+        [(ngModel)]="username"
+        placeholder="@seuusuario"
+        class="custom-input"
+      ></ion-input>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">E-mail</label>
+      <ion-input
+        [(ngModel)]="email"
+        type="email"
+        placeholder="seuemail@exemplo.com"
+        class="custom-input"
+      ></ion-input>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Bio</label>
+      <ion-textarea
+        [(ngModel)]="bio"
+        placeholder="Conte um pouco sobre você..."
+        rows="3"
+        class="custom-input"
+      ></ion-textarea>
+    </div>
+  </div>
+
+  <!-- Botão Salvar -->
+  <div class="save-section">
+    <ion-button expand="block" class="save-button" (click)="salvar()">
+      Salvar Alterações
+    </ion-button>
+  </div>
+
+</ion-content>

@@ -1,0 +1,56 @@
+// For information on how to create your own theme, please refer to:
+// https://ionicframework.com/docs/theming/
+// src/theme/variables.scss
+
+:root {
+  --vinho:        #6B1A2A;
+  --vinho-dark:   #4a1018;
+  --vinho-light:  #8a2a3a;
+  --dourado:      #9A6133;
+  --bege:         #FAF5EF;
+  --bege-card:    #FFF8F2;
+  --bege-border:  #f0e4d8;
+  --text-dark:    #3a1a0e;
+  --text-mid:     #5a3a2a;
+  --text-muted:   #8a6a5a;
+  --text-light:   #bbbbbb;
+
+  --ion-color-primary:          #6B1A2A;
+  --ion-color-primary-rgb:      107,26,42;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-shade:    #4a1018;
+  --ion-color-primary-tint:     #8a2a3a;
+
+  --ion-background-color:       #FAF5EF;
+  --ion-background-color-rgb:   250,245,239;
+  --ion-text-color:             #3a1a0e;
+  --ion-toolbar-background:     #6B1A2A;
+  --ion-toolbar-color:          #ffffff;
+  --ion-tab-bar-background:     #ffffff;
+  --ion-tab-bar-border-color:   #f0e4d8;
+  --ion-tab-bar-color:          #bbbbbb;
+  --ion-tab-bar-color-selected: #6B1A2A;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap');
+
+ion-title { font-family: 'Playfair Display', serif !important; }
+
+.btn-vinho {
+  --background: #6B1A2A; --color: #ffffff; --border-radius: 24px;
+  font-weight: 700; letter-spacing: 0.5px;
+}
+
+.btn-outline-vinho {
+  --background: transparent; --color: #6B1A2A;
+  --border-color: #6B1A2A; --border-width: 1.5px;
+  --border-style: solid; --border-radius: 24px; font-weight: 700;
+}
+
+.btn-dourado {
+  --background: #9A6133; --color: #ffffff; --border-radius: 24px; font-weight: 700;
+}
+
+.toast-vinho {
+  --background: #6B1A2A; --color: #ffffff; --border-radius: 12px;
+}

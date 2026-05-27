@@ -1,0 +1,121 @@
+// Variáveis de cor (devem estar no global.scss ou _variables.scss)
+// --color-wine: #7a1228;
+// --color-wine-dark: #5a0d1e;
+// --color-bg: #f5f0eb;
+// --color-bg-section: #ede8e2;
+// --color-text: #2c1a1a;
+// --color-text-light: #7a5c5c;
+// --color-divider: #ddd5cd;
+
+ion-content {
+  --background: var(--color-bg, #f5f0eb);
+}
+
+// ── Foto de perfil ──────────────────────────────────
+.profile-photo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 0 24px;
+
+  .photo-wrapper {
+    position: relative;
+    cursor: pointer;
+    width: 96px;
+    height: 96px;
+
+    .profile-avatar {
+      width: 96px;
+      height: 96px;
+      border: 3px solid var(--color-wine, #7a1228);
+      box-shadow: 0 4px 16px rgba(122, 18, 40, 0.18);
+
+      img {
+        object-fit: cover;
+      }
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: rgba(122, 18, 40, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+
+      ion-icon {
+        font-size: 24px;
+        color: #fff;
+      }
+    }
+
+    &:hover .photo-overlay,
+    &:active .photo-overlay {
+      opacity: 1;
+    }
+  }
+
+  .photo-label {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--color-text-light, #7a5c5c);
+    letter-spacing: 0.3px;
+  }
+}
+
+// ── Formulário ──────────────────────────────────────
+.form-section {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(122, 18, 40, 0.07);
+  margin-bottom: 24px;
+}
+
+.field-group {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--color-divider, #ddd5cd);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .field-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--color-wine, #7a1228);
+    margin-bottom: 4px;
+  }
+}
+
+.custom-input {
+  --padding-start: 0;
+  --padding-end: 0;
+  --background: transparent;
+  --color: var(--color-text, #2c1a1a);
+  --placeholder-color: var(--color-text-light, #7a5c5c);
+  font-size: 15px;
+}
+
+// ── Botão Salvar ────────────────────────────────────
+.save-section {
+  padding: 0 0 32px;
+}
+
+.save-button {
+  --background: var(--color-wine, #7a1228);
+  --background-activated: var(--color-wine-dark, #5a0d1e);
+  --border-radius: 8px;
+  --color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  height: 48px;
+  font-size: 14px;
+  text-transform: uppercase;
+}

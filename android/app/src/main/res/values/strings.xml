@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Receitas da Nona</string>
+    <string name="title_activity_main">Receitas da Nona</string>
+    <string name="package_name">com.ReceitasdaNona.app</string>
+    <string name="custom_url_scheme">com.ReceitasdaNona.app</string>
+</resources>

@@ -1,0 +1,60 @@
+<!-- src/app/pages/configuracoes/configuracoes.page.html -->
+
+<!--Tela de configurações do app-->>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/perfil" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Configurações</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- Perfil -->
+  <div class="section-title">Perfil</div>
+  <ion-list class="config-list">
+    <ion-item (click)="editarPerfil()" button detail>
+      <ion-icon name="person-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>Editar Perfil</ion-label>
+    </ion-item>
+    <ion-item (click)="alterarSenha()" button detail>
+      <ion-icon name="lock-closed-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>Alterar Senha</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Privacidade -->
+  <div class="section-title">Privacidade</div>
+  <ion-list class="config-list">
+    <ion-item (click)="verTermos()" button detail>
+      <ion-icon name="document-text-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>Termos de Uso</ion-label>
+    </ion-item>
+    <ion-item (click)="verPrivacidade()" button detail>
+      <ion-icon name="shield-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>Política de Privacidade</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Sobre -->
+  <div class="section-title">Sobre</div>
+  <ion-list class="config-list">
+    <ion-item>
+      <ion-icon name="information-circle-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>Versão do App</ion-label>
+      <ion-note slot="end">1.0.0</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <!-- Sair -->
+  <div class="logout-area">
+    <ion-button expand="block" fill="outline" color="danger" (click)="sair()">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      Sair da Conta
+    </ion-button>
+  </div>
+
+</ion-content>

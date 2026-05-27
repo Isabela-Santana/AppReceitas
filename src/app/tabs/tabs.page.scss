@@ -1,0 +1,46 @@
+// ─────────────────────────────────────────────────────
+// Cole este bloco no seu src/global.scss
+// para estilizar a tab bar com o botão + central elevado
+// ─────────────────────────────────────────────────────
+
+.custom-tab-bar {
+  height: 60px;
+  --background: #ffffff;
+  border-top: 0.5px solid #e8e0d8;
+
+  ion-tab-button {
+    --color: #b0a0a0;
+    --color-selected: #7a1228;
+    font-size: 10px;
+  }
+
+  // Botão + central elevado
+  ion-tab-button.tab-center-btn {
+    --color: transparent;
+    --color-selected: transparent;
+    --ripple-color: transparent;
+    overflow: visible;
+
+    .center-fab {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #7a1228;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -20px;
+      box-shadow: 0 4px 16px rgba(122, 18, 40, 0.35);
+      transition: transform 0.15s;
+
+      ion-icon {
+        font-size: 26px;
+        color: #fff;
+      }
+    }
+
+    &:active .center-fab {
+      transform: scale(0.94);
+    }
+  }
+}

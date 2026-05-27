@@ -1,0 +1,144 @@
+<!-- src/app/pages/perfil/perfil.page.html -->
+
+
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ usuario?.username }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/tabs/configuracoes">
+        <ion-icon slot="icon-only" name="settings-outline" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="usuario; else skeleton">
+
+  <!-- Perfil topo -->
+  <div class="perfil-bloco">
+    <div class="perfil-topo">
+      <div class="avatar-ring">
+        <img *ngIf="usuario.fotoUrl; else iniciais"
+          [src]="usuario.fotoUrl" [alt]="usuario.nome" class="avatar-img"/>
+        <ng-template #iniciais>{{ usuario.iniciais }}</ng-template>
+      </div>
+      <div class="perfil-info">
+        <p class="perfil-nome">{{ usuario.nome }}</p>
+        <p class="perfil-handle">@{{ usuario.username }}</p>
+        <p class="perfil-bio">{{ usuario.bio }}</p>
+      </div>
+    </div>
+    <div class="perfil-acoes">
+      <button class="btn-editar" routerLink="/editar-perfil">Editar perfil</button>
+      <button class="btn-compartilhar">
+        <ion-icon name="share-social-outline"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-item">
+      <span class="stat-num">{{ receitasPostadas.length }}</span>
+      <span class="stat-lbl">Postadas</span>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <span class="stat-num">{{ receitasCurtidas.length }}</span>
+      <span class="stat-lbl">Curtidas</span>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <span class="stat-num">{{ usuario.seguidores }}</span>
+      <span class="stat-lbl">Seguidores</span>
+    </div>
+  </div>
+
+  <!-- Abas só com ícones -->
+  <div class="abas-nav">
+    <button class="aba-btn" [class.ativa]="abaAtiva === 'postadas'"
+      (click)="abaAtiva = 'postadas'" aria-label="Postadas">
+      <ion-icon name="grid-outline"></ion-icon>
+    </button>
+    <button class="aba-btn" [class.ativa]="abaAtiva === 'curtidas'"
+      (click)="abaAtiva = 'curtidas'" aria-label="Curtidas">
+      <ion-icon name="heart-outline"></ion-icon>
+    </button>
+    <button class="aba-btn" [class.ativa]="abaAtiva === 'salvas'"
+      (click)="abaAtiva = 'salvas'" aria-label="Salvas">
+      <ion-icon name="bookmark-outline"></ion-icon>
+    </button>
+  </div>
+
+  <!-- ABA: Postadas -->
+  <div *ngIf="abaAtiva === 'postadas'" class="aba-conteudo">
+    <div class="grid" *ngIf="receitasPostadas.length > 0; else semPostadas">
+      <div class="grid-item" *ngFor="let receita of receitasPostadas; trackBy: trackById"
+        (click)="verReceita(receita)">
+        <img [src]="receita.imagemUrl" [alt]="receita.titulo" loading="lazy"/>
+        <div class="grid-overlay">
+          <ion-icon name="heart"></ion-icon>{{ receita.curtidas }}
+        </div>
+      </div>
+    </div>
+    <ng-template #semPostadas>
+      <div class="empty-state">
+        <ion-icon name="restaurant-outline" class="empty-icon"></ion-icon>
+        <p>Você ainda não publicou receitas.</p>
+        <button class="empty-btn" routerLink="/tabs/nova-receita">Criar receita</button>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- ABA: Curtidas -->
+  <div *ngIf="abaAtiva === 'curtidas'" class="aba-conteudo">
+    <div class="grid" *ngIf="receitasCurtidas.length > 0; else semCurtidas">
+      <div class="grid-item" *ngFor="let receita of receitasCurtidas; trackBy: trackById"
+        (click)="verReceita(receita)">
+        <img [src]="receita.imagemUrl" [alt]="receita.titulo" loading="lazy"/>
+        <div class="grid-overlay">
+          <ion-icon name="heart"></ion-icon>{{ receita.curtidas }}
+        </div>
+      </div>
+    </div>
+    <ng-template #semCurtidas>
+      <div class="empty-state">
+        <ion-icon name="heart-outline" class="empty-icon"></ion-icon>
+        <p>Nenhuma receita curtida ainda.</p>
+        <button class="empty-btn" routerLink="/tabs/home">Explorar receitas</button>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- ABA: Salvas -->
+  <div *ngIf="abaAtiva === 'salvas'" class="aba-conteudo">
+    <div class="grid" *ngIf="receitasSalvas.length > 0; else semSalvas">
+      <div class="grid-item" *ngFor="let receita of receitasSalvas; trackBy: trackById"
+        (click)="verReceita(receita)">
+        <img [src]="receita.imagemUrl" [alt]="receita.titulo" loading="lazy"/>
+        <div class="grid-overlay">
+          <ion-icon name="heart"></ion-icon>{{ receita.curtidas }}
+        </div>
+      </div>
+    </div>
+    <ng-template #semSalvas>
+      <div class="empty-state">
+        <ion-icon name="bookmark-outline" class="empty-icon"></ion-icon>
+        <p>Nenhuma receita salva ainda.</p>
+        <button class="empty-btn" routerLink="/tabs/home">Explorar receitas</button>
+      </div>
+    </ng-template>
+  </div>
+
+</ion-content>
+
+<ng-template #skeleton>
+  <ion-content>
+    <div class="skeleton-wrap">
+      <ion-skeleton-text animated class="sk-avatar"></ion-skeleton-text>
+      <ion-skeleton-text animated class="sk-nome"></ion-skeleton-text>
+      <ion-skeleton-text animated class="sk-bio"></ion-skeleton-text>
+    </div>
+  </ion-content>
+</ng-template>
